@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="slider/bootstrap-slider.min.css">
+    <link rel="stylesheet" type="text/css" href="slider/bootstrap.min.css">
+    <style>
+        #drawImg {
+            position: relative;
+            width: 1200px;
+            height: 700px;
+        }
+        #updImg {
+            position: absolute;
+            top: 520px;
+            left: 50px;
+        }
+        .slider {
+            position: absolute;
+            left: 500px;
+            top: 520px;
+        }
+    </style>
 </head>
 <body>
-    <canvas id="canvas" width="800" height="500"></canvas>
+    <div id="drawImg">
+        <canvas id="canvas" width="800" height="500"></canvas>
+        <input type="file" id="updImg" />
+            <input id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="5" data-slider-value="0"/>
+    </div>
+    <script src="./jquery.js"></script>
+    <script src="slider/bootstrap-slider.min.js"></script>
     <script src="./drawImg.js"></script>
 </body>
 </html>
