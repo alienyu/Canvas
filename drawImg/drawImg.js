@@ -166,6 +166,24 @@ function cpuCorner(size) {
     return cornerPos;
 }
 
+function isHit(pos,mouse) {
+    var left = pos.left,
+        right = pos.right,
+        top = pos.top,
+        bottom = pos.bottom,
+        mouseX = mouse.x,
+        mouseY = mouse.y;
+    var canvasPosLeft = $("canvas").offset().left,
+        canvasPosTop = $("canvas").offset().top;
+    var relativeLeft = mouseX - canvasPosLeft;
+    var relativeTop = mouseY - canvasPosTop;
+    if(relativeLeft > left && relativeLeft < right && relativeTop > top && relativeTop < bottom) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 $("#updImg").on("change" ,function() {
     var file = new FileReader;
     file.readAsDataURL(this.files[0]);
