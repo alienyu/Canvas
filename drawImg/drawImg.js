@@ -25,6 +25,7 @@ var drawObject = {
     hitType: "", //点击目标是右下角还是拖拽框
     mousePos: {} //鼠标偏移量
 }
+
 function init(path) {
     canvasImg = new Image();
     canvasImg.src = path;
@@ -41,6 +42,7 @@ function draw(type) {
     drawImg();
     drawRect(type);
     drawResCorner(20);
+    cutImg();
 }
 
 function drawImg() {
@@ -64,6 +66,11 @@ function drawResCorner(size) {
     var color = "red";
     ctx.fillStyle = color;
     ctx.fillRect(pos.left, pos.top, size, size);
+}
+
+function cutImg() {
+    ctx.drawImage(canvasImg, drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height,
+        500, 100, 160, 100);
 }
 
 function calculateImg(img, canvas) {
@@ -338,6 +345,8 @@ $("body").bind({
             drawObject.hitType = "corner";
         } else if(isHit(drawObject.rectPos, {x: e.pageX, y: e.pageY})){
             drawObject.hitType = "rect";
+        } else {
+            drawObject.hitType = "";
         }
     },
     "mousemove": function(e) {
