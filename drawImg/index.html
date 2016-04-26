@@ -9,6 +9,7 @@
         canvas {
             margin-top: 100px;
             margin-left: 100px;
+            background-color: #ffff00;
         }
         #drawImg {
             position: relative;
@@ -20,16 +21,12 @@
             top: 620px;
             left: 150px;
         }
-        .slider {
-            position: absolute;
-            left: 600px;
-            top: 620px;
-        }
     </style>
 </head>
 <body>
     <div id="drawImg">
         <canvas id="canvas" width="800" height="500"></canvas>
+        <canvas id="canvasTwo" width="800" height="500"></canvas>
         <input type="file" id="updImg" />
             <input id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="5" data-slider-value="0"/>
     </div>
