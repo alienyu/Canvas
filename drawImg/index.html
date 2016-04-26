@@ -6,10 +6,17 @@
     <link rel="stylesheet" type="text/css" href="slider/bootstrap-slider.min.css">
     <link rel="stylesheet" type="text/css" href="slider/bootstrap.min.css">
     <style>
-        canvas {
-            margin-top: 100px;
-            margin-left: 100px;
+        #canvas {
+            position: absolute;
+            top: 100px;
+            left: 100px;
             background-color: #ffff00;
+        }
+        #canvasTwo {
+            position: absolute;
+            top: 100px;
+            left: 925px;
+            background-color: #0e90d2;
         }
         #drawImg {
             position: relative;
@@ -21,12 +28,17 @@
             top: 620px;
             left: 150px;
         }
+        .slider {
+            position: absolute;
+            top: 620px;
+            left: 600px;
+        }
     </style>
 </head>
 <body>
     <div id="drawImg">
         <canvas id="canvas" width="800" height="500"></canvas>
-        <canvas id="canvasTwo" width="800" height="500"></canvas>
+        <canvas id="canvasTwo" width="320" height="200"></canvas>
         <input type="file" id="updImg" />
             <input id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="5" data-slider-value="0"/>
     </div>
