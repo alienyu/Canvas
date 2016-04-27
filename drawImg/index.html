@@ -45,5 +45,19 @@
     <script src="./jquery.js"></script>
     <script src="slider/bootstrap-slider.min.js"></script>
     <script src="./drawImg.js"></script>
+    <script>
+        (function defaultImage(){
+            var img = new Image()
+            img.src = 'zhangxueyou.jpg';
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            img.onload = function(){
+                canvas.height = img.height;
+                canvas.width = img.width;
+                ctx.drawImage(img,0,0);
+                init(canvas.toDataURL('image/jpeg'));
+            }
+        })();
+    </script>
 </body>
 </html>
