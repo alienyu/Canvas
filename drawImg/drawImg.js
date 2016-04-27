@@ -2,7 +2,7 @@
 * @Author: alienyu
 * @Date:   2016-04-27 08:53:50
 * @Last modified by:   chexingyou
-* @Last modified time: 2016-04-27 09:29:11
+* @Last modified time: 2016-04-27 09:38:31
 */
 
 /**
@@ -32,6 +32,7 @@ var drawObject = {
     hitType: "", //点击目标是右下角还是拖拽框
     mousePos: {} //鼠标偏移量
 }
+
 function init(path) {
     canvasImg = new Image();
     canvasImg.src = path;
@@ -49,6 +50,7 @@ function draw(type) {
     drawRect(type);
     drawResCorner(20);
     drawRectInfo();
+    cutImg();
 }
 
 function drawImg() {
@@ -82,6 +84,10 @@ function drawRectInfo(){
     ctx.fillStyle = '#fff';
     ctx.font="12px";
     ctx.fillText(w + 'x' + h, l + 4, t - 8);
+
+function cutImg() {
+    ctx.drawImage(canvasImg, drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height,
+        500, 100, 160, 100);
 }
 
 function calculateImg(img, canvas) {
@@ -356,6 +362,8 @@ $("body").bind({
             drawObject.hitType = "corner";
         } else if(isHit(drawObject.rectPos, {x: e.pageX, y: e.pageY})){
             drawObject.hitType = "rect";
+        } else {
+            drawObject.hitType = "";
         }
     },
     "mousemove": function(e) {
