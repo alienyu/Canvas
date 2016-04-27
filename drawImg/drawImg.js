@@ -54,6 +54,7 @@ function draw(type) {
     drawRect(type);
     drawResCorner(20);
     drawRectInfo();
+    drawVirtualCorner();
 }
 
 function drawImg() {
@@ -87,6 +88,27 @@ function drawRectInfo(){
     ctx.fillStyle = '#fff';
     ctx.font="12px";
     ctx.fillText(w + 'x' + h, l + 4, t - 8);
+}
+
+function drawVirtualCorner() {
+    if((drawObject.resCorner.left >= drawObject.canvasPos.right) || (drawObject.resCorner.top >= drawObject.canvasPos.bottom)) {
+        $("#virtualCorner").remove();
+        var div = document.createElement('div');
+        var pos = {
+            left: drawObject.canvasPos.offsetLeft + drawObject.resRectPos.right,
+            top: drawObject.canvasPos.offsetTop + drawObject.resRectPos.bottom
+        };
+        $(div).css({
+            position: 'absolute',
+            left: pos.left + "px",
+            top: pos.top + "px",
+            width: "20px",
+            height: "20px",
+            "background-color": "red"
+        }).attr("id", "virtualCorner").appendTo($("#drawImg"));
+    } else {
+        $("#virtualCorner").remove();
+    }
 }
 
 function cutImg() {
@@ -186,10 +208,10 @@ function cpuCorner(type, size) {
         point = drawObject.resRectPos.corner;
     }
     drawObject.resCorner = {
-        top: point.top - size,
-        bottom: point.top,
-        left: point.left - size,
-        right: point.left
+        top: point.top,
+        bottom: point.top + size,
+        left: point.left,
+        right: point.left + size
     };
 }
 
@@ -324,10 +346,10 @@ function refreshRectPos() {
     drawObject.rectPos = drawObject.resRectPos = {
         left: drawObject.rectPos.left,
         top: drawObject.rectPos.top,
-        right: drawObject.resCorner.right,
-        bottom: drawObject.resCorner.bottom,
-        width: drawObject.resCorner.right - drawObject.rectPos.left,
-        height: drawObject.resCorner.bottom - drawObject.rectPos.top,
+        right: drawObject.resCorner.left,
+        bottom: drawObject.resCorner.top,
+        width: drawObject.resCorner.left - drawObject.rectPos.left,
+        height: drawObject.resCorner.top - drawObject.rectPos.top,
         corner: {
             top: drawObject.resCorner.top,
             left: drawObject.resCorner.left
