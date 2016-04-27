@@ -10,6 +10,8 @@
  */
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
+var crop_canvas = document.getElementById('canvasTwo');
+var copx = crop_canvas.getContext('2d');
 ctx.fillStyle = "#000"; //画布背景色
 var drawObject = {
     canvasPos: {
@@ -27,6 +29,7 @@ var drawObject = {
     rectPos: {}, //裁剪矩形框位置和尺寸
     resRectPos: {}, //裁剪框变化后的位置和尺寸
     resCorner: {}, //改变尺寸的四个小框的位置
+    resultImg:  "", //裁剪后的图形base64
     ratio: 1, //比例
     isMouseDown: false, //鼠标是否按下
     hitType: "", //点击目标是右下角还是拖拽框
@@ -41,6 +44,7 @@ function init(path) {
         cpuRectPos();
         cpuCorner("init", 20);
         draw("init");
+        cutImg();
     }
 }
 
@@ -87,12 +91,23 @@ function drawRectInfo(){
 
 function cutImg() {
     try {
-        ctx.drawImage(canvasImg, drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height,
-            500, 100, 160, 100);
+        var imgData = ctx.getImageData(drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height);
+        var bufferCanvas = document.createElement('canvas');
+        bufferCanvas.width = drawObject.rectPos.width;
+        bufferCanvas.height = drawObject.rectPos.height;
+        var bfx = bufferCanvas.getContext('2d');
+        bfx.putImageData(imgData, 0, 0);
+        drawObject.resultImg = bufferCanvas.toDataURL("image/png");
+        var corpImg = new Image();
+        corpImg.src = drawObject.resultImg;
+        corpImg.onload = function() {
+            copx.clearRect(0, 0, 320, 200);
+            copx.drawImage(corpImg, 0, 0, 320, 200);
+        }
     } catch(e){}
 }
 
-function calculateImg(img, canvas) {
+function calculateImg(img) {
     var imgWidth = img.width,
         imgHeight = img.height,
         canvasWidth = drawObject.canvasPos.width,
@@ -147,8 +162,8 @@ function cpuRectPos() {
         var height = parseInt(drawObject.imgOriginPos.height, 10);
         var width = parseInt(height*1.6, 10);
     }
-    var top = parseInt((canvas.height - height) / 2, 10);
-    var left = parseInt((canvas.width - width) / 2, 10);
+    var top = parseInt((drawObject.canvasPos.height - height) / 2, 10);
+    var left = parseInt((drawObject.canvasPos.width - width) / 2, 10);
     drawObject.resRectPos = drawObject.rectPos = {
         width: width,
         height: height,
@@ -383,3 +398,7 @@ $("body").bind({
         cutImg();
     }
 });
+
+$("#canvasTwo").bind("click", function() {
+    window.open(drawObject.resultImg);
+})
