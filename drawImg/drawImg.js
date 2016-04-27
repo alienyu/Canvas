@@ -7,13 +7,13 @@ ctx.fillStyle = "#000"; //画布背景色
 var drawObject = {
     canvasPos: {
         left: 0,
-        right: $("canvas").width(),
+        right: 800,
         top: 0,
-        bottom: $("canvas").height(),
+        bottom: 500,
         offsetTop: $("canvas").offset().top,
         offsetLeft: $("canvas").offset().left,
-        width: $("canvas").width(),
-        height: $("canvas").height()
+        width: 800,
+        height: 500
     }, //canvas位置大小
     imgOriginPos: {}, //图像原始位置,尺寸
     imgResizePos: {}, //图像变化后的位置和尺寸
@@ -42,7 +42,6 @@ function draw(type) {
     drawImg();
     drawRect(type);
     drawResCorner(20);
-    cutImg();
 }
 
 function drawImg() {
@@ -69,8 +68,10 @@ function drawResCorner(size) {
 }
 
 function cutImg() {
-    ctx.drawImage(canvasImg, drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height,
-        500, 100, 160, 100);
+    try {
+        ctx.drawImage(canvasImg, drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height,
+            500, 100, 160, 100);
+    } catch(e){}
 }
 
 function calculateImg(img, canvas) {
@@ -361,6 +362,7 @@ $("body").bind({
     "mouseup": function() {
         drawObject.isMouseDown = false;
         drawObject.rectPos = drawObject.resRectPos;
+        cutImg();
     }
 });
 
