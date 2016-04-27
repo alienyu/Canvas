@@ -1,4 +1,11 @@
 /**
+* @Author: alienyu
+* @Date:   2016-04-27 08:53:50
+* @Last modified by:   chexingyou
+* @Last modified time: 2016-04-27 09:46:18
+*/
+
+/**
  * Created by user on 2016/4/21.
  */
 var canvas = document.getElementById('canvas');
@@ -42,6 +49,7 @@ function draw(type) {
     drawImg();
     drawRect(type);
     drawResCorner(20);
+    drawRectInfo();
 }
 
 function drawImg() {
@@ -65,6 +73,16 @@ function drawResCorner(size) {
     var color = "red";
     ctx.fillStyle = color;
     ctx.fillRect(pos.left, pos.top, size, size);
+}
+
+function drawRectInfo(){
+    var t = drawObject.resRectPos.top, l = drawObject.resRectPos.left,
+        w = drawObject.resRectPos.width, h = drawObject.resRectPos.height;
+    ctx.fillStyle = '#666';
+    ctx.fillRect(l, t - 22, 50, 20);
+    ctx.fillStyle = '#fff';
+    ctx.font="12px";
+    ctx.fillText(w + 'x' + h, l + 4, t - 8);
 }
 
 function cutImg() {
@@ -365,4 +383,3 @@ $("body").bind({
         cutImg();
     }
 });
-
