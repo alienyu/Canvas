@@ -2,7 +2,7 @@
 * @Author: alienyu
 * @Date:   2016-04-27 08:53:50
 * @Last modified by:   chexingyou
-* @Last modified time: 2016-04-27 09:38:31
+* @Last modified time: 2016-04-27 09:46:18
 */
 
 /**
@@ -84,6 +84,7 @@ function drawRectInfo(){
     ctx.fillStyle = '#fff';
     ctx.font="12px";
     ctx.fillText(w + 'x' + h, l + 4, t - 8);
+}
 
 function cutImg() {
     ctx.drawImage(canvasImg, drawObject.rectPos.left, drawObject.rectPos.top, drawObject.rectPos.width, drawObject.rectPos.height,
