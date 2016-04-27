@@ -8,6 +8,8 @@
 /**
  * Created by user on 2016/4/21.
  */
+
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var crop_canvas = document.getElementById('canvasTwo');
@@ -380,6 +382,7 @@ $("#updImg").on("change" ,function() {
         init(this.result);
     }
 })
+
 $("#slider").slider();
 $("#slider").on("slide", function(slideEvt) {
     drawObject.ratio = (1+slideEvt.value/100);
