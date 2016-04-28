@@ -1,0 +1,123 @@
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #E1E1E1;
+    z-index: 1000;
+}
+.draw_mask {
+    position: fixed;
+    width: 840px;
+    height: 524px;
+    left:50%;
+    margin-left: -420px;
+    top: 50%;
+    margin-top: -262px;
+    border-radius: 4px;
+    z-index: 1001;
+    background-color: #fff;
+}
+.draw_header {
+    padding: 18px 0px;
+    margin-left: 16px;
+    width: 808px;
+    height:14px;
+    font-size: 14px;
+    color: #222;
+    border-bottom: 1px solid #e5e9ef;
+}
+.draw_header span {
+    float: left;
+    width:768px;
+    padding-left: 20px;
+    text-align: center;
+}
+.draw_header i {
+    float: right;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: url(imgs/icons-upload.png) 300px -790px;
+}
+.draw_header i:hover {
+    background-position: 236px -790px;
+}
+.draw_content {
+    padding: 30px 40px 0px 40px;
+}
+.origin_canvas {
+    float: left;
+    width: 480px;
+    height:340px;
+    padding-right: 20px;
+    border-right: 1px solid #e5e9ef;
+}
+.origin_canvas .draw_ops {
+    height: 40px;
+    width: 100%;
+    position: relative;
+}
+.origin_canvas .draw_upd {
+    position: absolute;
+    left: 0;
+    top:10px;
+    opacity: 0;
+    width: 70px;
+    cursor: pointer;
+}
+.origin_canvas .draw_upd_hack {
+    position: absolute;
+    left:0;
+    top:10px;
+    width: 48px;
+    font-size: 12px;
+    color: #6d757a;
+    display: inline-block;
+    padding-left: 19px;
+    text-decoration: none;
+    background: url(imgs/icons-upload.png) 297px -535px;
+}
+.origin_canvas .draw_upd_hack:hover {
+    background-position: 233px -535px;
+    color: #0e90e2;
+}
+.origin_canvas .slider {
+    position: absolute;
+    left: 240px;
+    top: 13px;
+}
+.origin_canvas .slider_minus{
+    position: absolute;
+    display: inline-block;
+    width: 15px;
+    height: 8px;
+    left: 207px;
+    top: 11px;
+    border-bottom: 2px solid #5A5A61;
+    text-decoration: none;
+}
+.origin_canvas .slider_plus {
+    position: absolute;
+    top: 3px;
+    left: 460px;
+    font-size: 25px;
+    text-decoration: none;
+    color: #5A5A61;
+}
+.rst_canvas {
+    float: left;
+    padding-left: 19px;
+    width: 240px;
+    height: 250px;
+}
+#oriCanvas, #rstCanvas {
+    border-radius: 4px;
+    background-color: #000;
+}
+.rst_canvas .prompt {
+    font-size: 12px;
+    color: #99a2aa;
+    margin-top: 20px;
+}

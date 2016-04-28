@@ -4,47 +4,36 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="slider/bootstrap-slider.min.css">
-    <link rel="stylesheet" type="text/css" href="slider/bootstrap.min.css">
-    <style>
-        #canvas {
-            position: absolute;
-            top: 100px;
-            left: 100px;
-            background-color: #ffff00;
-        }
-        #canvasTwo {
-            position: absolute;
-            top: 100px;
-            left: 925px;
-            background-color: #0e90d2;
-        }
-        #drawImg {
-            position: relative;
-            width: 1200px;
-            height: 700px;
-        }
-        #updImg {
-            position: absolute;
-            top: 620px;
-            left: 150px;
-        }
-        .slider {
-            position: absolute;
-            top: 620px;
-            left: 600px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-    <div id="drawImg">
-        <canvas id="canvas" width="800" height="500"></canvas>
-        <canvas id="canvasTwo" width="320" height="200"></canvas>
-        <input type="file" id="updImg" />
-            <input id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="5" data-slider-value="0"/>
+    <div id="drawImg" class="draw_mask">
+        <div class="draw_header">
+            <span>建议上传高清封面960*600</span>
+            <i id="closeDraw" class="draw_close"></i>
+        </div>
+        <div class="draw_content">
+            <div class="origin_canvas">
+                <canvas id="oriCanvas" width="480" height="300"></canvas>
+                <div class="draw_ops">
+                    <a href="javascript:;" class="draw_upd_hack">重新选择</a>
+                    <input type="file" id="updImg" class="draw_upd"/>
+                    <input id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="5" data-slider-value="0"/>
+                    <a href="javascript:;" class="slider_minus"></a>
+                    <a href="javascript:;" class="slider_plus">+</a>
+                </div>
+            </div>
+            <div class="rst_canvas">
+                <canvas id="rstCanvas" width="240" height="150"></canvas>
+                <div class="prompt">封面最终展示效果如上所示</div>
+            </div>
+        </div>
+
     </div>
+    <div id="mask" class="mask"></div>
     <script src="./jquery.js"></script>
     <script src="slider/bootstrap-slider.min.js"></script>
-    <script src="./drawImg.js"></script>
-    <!--<script src="./clipImg.js"></script>-->
+    <!--<script src="./drawImg.js"></script>-->
+    <script src="./clipImg.js"></script>
 </body>
 </html>
