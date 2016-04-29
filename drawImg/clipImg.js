@@ -7,9 +7,9 @@ function clipImg(ops) {
             left: 0, //画布起始点
             top: 0,
             right: 480,
-            bottom: 320,
+            bottom: 300,
             width: 480,
-            height: 320
+            height: 300
         },
         minResize: {
             width:32,
@@ -33,7 +33,7 @@ function clipImg(ops) {
     }
     $.extend(this.options, ops);
     this.start();
-    return this;
+    return this.options.resultImg;
 }
 
 clipImg.prototype = {
@@ -41,7 +41,7 @@ clipImg.prototype = {
         this.oriCanvas = document.getElementById("oriCanvas");
         this.ctx = this.oriCanvas.getContext('2d');
         this.rstCanvas = document.getElementById('rstCanvas');
-        this.copx = this.rstCanvas.getContext('2d')
+        this.copx = this.rstCanvas.getContext('2d');
         this.bindEvent();
     },
     bindEvent: function() {
@@ -62,6 +62,7 @@ clipImg.prototype = {
     bindSlider: function() {
         var that = this;
         $("#slider").slider();
+        $(".tooltip-inner").remove();
         $("#slider").on({
             "slide": function(slideEvt) {
                 that.options.ratio = (1 + slideEvt.value / 100);
@@ -109,6 +110,11 @@ clipImg.prototype = {
                     that.cpuCorner("", that.options.corner.size);
                     that.draw();
                 }
+                if(that.isHit(ops.resCorner, {x: e.pageX, y:e.pageY})) {
+                    $("#oriCanvas").css("cursor", "se-resize");
+                } else {
+                    $("#oriCanvas").css("cursor", "pointer");
+                }
             },
             "mouseup": function() {
                 ops.isMouseDown = false;
@@ -119,7 +125,7 @@ clipImg.prototype = {
 
         $("#rstCanvas").bind("click", function() {
             window.open(ops.resultImg);
-        })
+        });
     },
     init: function(path) {
         var that = this;
@@ -137,13 +143,18 @@ clipImg.prototype = {
         this.ctx.clearRect(0, 0, this.options.canvasPos.width, this.options.canvasPos.height);
         this.drawImg();
         this.drawRect(type);
-        this.drawResCorner(this.options.corner.size);
+        //this.drawResCorner(this.options.corner.size);
         this.drawRectInfo();
-        this.drawVirtualCorner();
+        //this.drawVirtualCorner();
     },
     drawImg: function() {
+        var ops = this.options;
         var pos = this.options.imgResizePos;
         this.ctx.drawImage(this.canvasImg, pos.left, pos.top, pos.width, pos.height);
+        var oriImgData = this.ctx.getImageData(ops.resRectPos.left, ops.resRectPos.top, ops.resRectPos.width, ops.resRectPos.height);
+        this.ctx.fillStyle = "rgba(255,255,255,0.3)";
+        this.ctx.fillRect(pos.left, pos.top, pos.width, pos.height);
+        this.ctx.putImageData(oriImgData, ops.resRectPos.left, ops.resRectPos.top);
     },
     drawRect: function(type) {
         this.ctx.strokeStyle = '#fff';
@@ -158,7 +169,7 @@ clipImg.prototype = {
     drawResCorner: function(size) {
         var pos = this.options.resCorner;
         this.ctx.fillStyle = this.options.corner.bgColor;
-        this.ctx.fillRect(pos.left, pos.top, size, size);
+        this.ctx.fillRect(pos.left, pos.top, size*2, size*2);
     },
     drawRectInfo: function() {
         var ops = this.options;
@@ -288,9 +299,9 @@ clipImg.prototype = {
             point = this.options.resRectPos.corner;
         }
         this.options.resCorner = {
-            top: point.top,
+            top: point.top - size,
             bottom: point.top + size,
-            left: point.left,
+            left: point.left - size,
             right: point.left + size
         };
     },
@@ -425,10 +436,10 @@ clipImg.prototype = {
         ops.rectPos = ops.resRectPos = {
             left: ops.rectPos.left,
             top: ops.rectPos.top,
-            right: ops.resCorner.left,
-            bottom: ops.resCorner.top,
-            width: ops.resCorner.left - ops.rectPos.left,
-            height: ops.resCorner.top - ops.rectPos.top,
+            right: ops.resCorner.left + ops.corner.size,
+            bottom: ops.resCorner.top + ops.corner.size,
+            width: ops.resCorner.left - ops.rectPos.left + ops.corner.size,
+            height: ops.resCorner.top - ops.rectPos.top + ops.corner.size,
             corner: {
                 top: ops.resCorner.top,
                 left: ops.resCorner.left

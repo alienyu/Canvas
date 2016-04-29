@@ -113,6 +113,7 @@
     height: 250px;
 }
 #oriCanvas, #rstCanvas {
+    cursor: pointer;
     border-radius: 4px;
     background-color: #000;
 }
