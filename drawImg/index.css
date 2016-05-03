@@ -1,4 +1,5 @@
 .mask {
+    display: none;
     position: fixed;
     left: 0;
     top: 0;
@@ -8,6 +9,7 @@
     z-index: 1000;
 }
 .draw_mask {
+    display: none;
     position: fixed;
     width: 840px;
     height: 524px;
@@ -46,6 +48,7 @@
 }
 .draw_content {
     padding: 30px 40px 0px 40px;
+    height:350px;
 }
 .origin_canvas {
     float: left;
@@ -79,9 +82,9 @@
     text-decoration: none;
     background: url(imgs/icons-upload.png) 297px -535px;
 }
-.origin_canvas .draw_upd_hack:hover {
+.origin_canvas .draw_upd_hack.hover {
     background-position: 233px -535px;
-    color: #0e90e2;
+    color: #3FB8E0;
 }
 .origin_canvas .slider {
     position: absolute;
@@ -122,3 +125,40 @@
     color: #99a2aa;
     margin-top: 20px;
 }
+.draw_footer {
+    position: relative;
+    left:50%;
+    width: 248px;
+    height: 34px;
+    margin-left: -124px;
+    margin-top: 40px;
+}
+.draw_footer a {
+    display: inline-block;
+    width: 110px;
+    height:30px;
+    line-height: 30px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid #ccd0d7;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.draw_footer .confirm {
+    color: #fff;
+    background-color: #00a1d6;
+    margin-right: 20px;
+}
+.draw_footer .confirm:hover {
+    background-color: #00b5e5;
+}
+.draw_footer .cancel {
+    color: #6d757a;
+    background-color: #fff;
+    border: 1px solid #ccd0d7;
+}
+.draw_footer .cancel:hover {
+    border: 1px solid #00b5e5;
+    color: #00b5e5;
+}
+

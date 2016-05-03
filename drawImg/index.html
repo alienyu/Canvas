@@ -19,8 +19,8 @@
                     <a href="javascript:;" class="draw_upd_hack">重新选择</a>
                     <input type="file" id="updImg" class="draw_upd"/>
                     <input id="slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="5" data-slider-value="0"/>
-                    <a href="javascript:;" class="slider_minus"></a>
-                    <a href="javascript:;" class="slider_plus">+</a>
+                    <a href="javascript:;" class="slider_minus slider_ops"></a>
+                    <a href="javascript:;" class="slider_plus slider_ops">+</a>
                 </div>
             </div>
             <div class="rst_canvas">
@@ -28,9 +28,13 @@
                 <div class="prompt">封面最终展示效果如上所示</div>
             </div>
         </div>
-
+        <div class="draw_footer">
+            <a href="javascript:;" class="confirm" id="confirmUpd">确认</a>
+            <a href="javascript:;" class="cancel" id="cancelUpd">取消</a>
+        </div>
     </div>
     <div id="mask" class="mask"></div>
+    <input type="file" id="upd" />
     <script src="./jquery.js"></script>
     <script src="slider/bootstrap-slider.min.js"></script>
     <!--<script src="./drawImg.js"></script>-->

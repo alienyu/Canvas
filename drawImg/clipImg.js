@@ -48,7 +48,8 @@ clipImg.prototype = {
         this.bindUpdImg();
         this.bindSlider();
         this.bindMouseEvent();
-    },
+        this.bindBtnEvent()
+;    },
     bindUpdImg: function() {
         var that = this;
         $("#updImg").on("change" ,function() {
@@ -56,6 +57,7 @@ clipImg.prototype = {
             file.readAsDataURL(this.files[0]);
             file.onloadend = function() {
                 that.init(this.result);
+                $("#slider").slider("setValue", 0);
             }
         })
     },
@@ -73,9 +75,29 @@ clipImg.prototype = {
                 that.refreshRectPos();
             }
         });
+
         $(".slider").on("click", function(e) {
             var value = $("#slider").val();
             that.options.ratio = (1 + value / 100);
+            that.resizeImg();
+            that.ratioRecPos();
+            that.cpuCorner('init', that.options.corner.size);
+            that.draw("init");
+            that.refreshRectPos();
+            that.cutImg();
+        });
+
+        $(".draw_ops").delegate(".slider_ops", "click", function(e) {
+            var oriData =parseInt($("#slider").val(), 10),
+                step = parseInt($("#slider").data("slider-step")),
+                resData;
+            if($(e.target).hasClass("slider_minus")) {
+                resData = (oriData - step) > 0 ? (oriData - step) : 0;
+            } else {
+                resData = (oriData + step) < $("#slider").data("slider-max") ? (oriData + step) : $("#slider").data("slider-max");
+            }
+            $("#slider").slider("setValue", resData);
+            that.options.ratio = (1 + resData / 100);
             that.resizeImg();
             that.ratioRecPos();
             that.cpuCorner('init', that.options.corner.size);
@@ -126,6 +148,45 @@ clipImg.prototype = {
         $("#rstCanvas").bind("click", function() {
             window.open(ops.resultImg);
         });
+
+        $('#updImg').bind({
+            "mouseenter": function(e) {
+                $(".draw_upd_hack").addClass("hover");
+            },
+            "mouseleave": function(e) {
+                $(".draw_upd_hack").removeClass("hover");
+            }
+        })
+    },
+    bindBtnEvent: function() {
+        var that = this;
+        reNew();
+        $("#closeDraw, #cancelUpd").click(function() {
+            $("#mask").hide();
+            $("#drawImg").hide();
+            $("#upd").remove();
+            $("body").append('<input type="file" id="upd" />');
+            reNew();
+        });
+
+        $("#confirmUpd").click(function() {
+            window.open(that.options.resultImg);
+        })
+        function reNew() {
+            $("#upd").on("change" ,function() {
+                var file = new FileReader;
+                file.readAsDataURL(this.files[0]);
+                file.onloadend = function() {
+                    $("#slider").slider();
+                    $("#slider").slider("setValue", 0);
+                    $("#mask").show();
+                    $("#drawImg").show();
+                    that.options.canvasPos.posLeft = $("#oriCanvas").offset().left;
+                    that.options.canvasPos.posTop = $("#oriCanvas").offset().top;
+                    that.init(this.result);
+                }
+            });
+        }
     },
     init: function(path) {
         var that = this;
@@ -464,5 +525,5 @@ clipImg.prototype = {
 }
 
 $(document).ready(function() {
-    clipImgObj = new clipImg();
+    new clipImg();
 })
