@@ -20,6 +20,7 @@ function clipImg(ops) {
            bgColor: "#000",
            strokeColor: "#fff"
         },
+        updCallback: function() {},
         imgOriginPos: {}, //图像原始位置,尺寸
         imgResizePos: {}, //图像变化后的位置和尺寸
         rectPos: {}, //裁剪矩形框位置和尺寸
@@ -170,8 +171,9 @@ clipImg.prototype = {
         });
 
         $("#confirmUpd").click(function() {
-            window.open(that.options.resultImg);
-        })
+            that.options.updCallback.call(that);
+        });
+
         function reNew() {
             $("#upd").on("change" ,function() {
                 var file = new FileReader;
@@ -525,5 +527,10 @@ clipImg.prototype = {
 }
 
 $(document).ready(function() {
-    new clipImg();
+    new clipImg({
+        updCallback: function() {
+            window.open(this.options.resultImg);
+        }
+    });
+
 })
